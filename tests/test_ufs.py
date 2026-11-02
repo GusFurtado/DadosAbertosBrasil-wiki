@@ -8,7 +8,7 @@ def test_extrair(brutos):
     assert (sp.codigo_ibge, sp.capital, sp.regiao) == (35, "São Paulo", "Sudeste")
     # infobox em predefinição dedicada (Predefinição:Info/Estado do Brasil/São Paulo)
     assert "paulista" in sp.gentilicos
-    assert por_sigla["AC"].gentilicos == ["acriano", "acreano"]
+    assert por_sigla["AC"].gentilicos == ["acriano"]  # do Wikidata (pt-br); a infobox só entra se ele não tiver nenhum
     assert all(u.gentilicos for u in por_sigla.values())
 
 

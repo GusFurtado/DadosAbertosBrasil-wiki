@@ -3,13 +3,13 @@
   "dataset": "ufs",
   "descricao": "As 27 unidades federativas, com capital, área, coordenadas, gentílico, lema, bandeira e brasão.",
   "licenca": "CC BY-SA 4.0 (conteúdo derivado da Wikipedia)",
-  "gerado_em": "2026-10-19T17:44:49Z",
+  "gerado_em": "2026-11-01T21:31:27Z",
   "fontes": [
     {
       "titulo": "Wikidata",
       "url": "https://query.wikidata.org/",
       "revid": null,
-      "consulta": "SELECT ?item ?iso ?nome ?artigo ?capital ?area ?coordenadas ?bandeira ?brasao\n  (GROUP_CONCAT(DISTINCT ?gentilico; separator=\"|\") AS ?gentilicos) (SAMPLE(?lema_) AS ?lema)\nWHERE {\n  ?item wdt:P300 ?iso . FILTER(STRSTARTS(?iso, \"BR-\"))\n  OPTIONAL { ?item rdfs:label ?nome FILTER(LANG(?nome) = \"pt\") }\n  OPTIONAL { ?item wdt:P36 ?c . ?c rdfs:label ?capital FILTER(LANG(?capital) = \"pt\") }\n  OPTIONAL { ?item wdt:P2046 ?area }\n  OPTIONAL { ?item wdt:P625 ?coordenadas }\n  OPTIONAL { ?item wdt:P41 ?bandeira }\n  OPTIONAL { ?item wdt:P94 ?brasao }\n  OPTIONAL { ?item wdt:P1549 ?gentilico FILTER(LANG(?gentilico) = \"pt\") }\n  OPTIONAL { ?item wdt:P1451 ?lema_ }\n  OPTIONAL { ?a schema:about ?item; schema:isPartOf <https://pt.wikipedia.org/>; schema:name ?artigo }\n}\nGROUP BY ?item ?iso ?nome ?artigo ?capital ?area ?coordenadas ?bandeira ?brasao"
+      "consulta": "SELECT ?item ?iso ?nome ?artigo ?capital ?area ?coordenadas ?bandeira ?brasao\n  (GROUP_CONCAT(DISTINCT STR(?gentilico); separator=\"|\") AS ?gentilicos) (SAMPLE(?lema_) AS ?lema)\nWHERE {\n  ?item wdt:P300 ?iso . FILTER(STRSTARTS(?iso, \"BR-\"))\n  OPTIONAL { ?item rdfs:label ?nome FILTER(LANG(?nome) = \"pt\") }\n  OPTIONAL { ?item wdt:P36 ?c . ?c rdfs:label ?capital FILTER(LANG(?capital) = \"pt\") }\n  OPTIONAL { ?item wdt:P2046 ?area }\n  OPTIONAL { ?item wdt:P625 ?coordenadas }\n  OPTIONAL { ?item wdt:P41 ?bandeira }\n  OPTIONAL { ?item wdt:P94 ?brasao }\n  OPTIONAL { ?item wdt:P1549 ?gentilico FILTER(LANG(?gentilico) IN (\"pt\", \"pt-br\")) }\n  OPTIONAL { ?item wdt:P1451 ?lema_ }\n  OPTIONAL { ?a schema:about ?item; schema:isPartOf <https://pt.wikipedia.org/>; schema:name ?artigo }\n}\nGROUP BY ?item ?iso ?nome ?artigo ?capital ?area ?coordenadas ?bandeira ?brasao"
     },
     {
       "titulo": "Wikipedia: infoboxes de 27 artigos",
@@ -31,8 +31,7 @@
       "latitude": -9.033333333,
       "longitude": -70.516666666,
       "gentilicos": [
-        "acriano",
-        "acreano"
+        "acriano"
       ],
       "lema": "Nec Luceo Pluribus Impar",
       "bandeira": "Bandeira do Acre.svg",
@@ -104,10 +103,8 @@
       "latitude": -12.52,
       "longitude": -41.69,
       "gentilicos": [
-        "baianos",
-        "baianas",
-        "baiana",
-        "baiano"
+        "baiano",
+        "baiana"
       ],
       "lema": "Per ardua surgo",
       "bandeira": "Bandeira da Bahia.svg",
@@ -234,8 +231,7 @@
       "latitude": -20.183333333,
       "longitude": -54.7,
       "gentilicos": [
-        "sul-mato-grossense",
-        "mato-grossense-do-sul"
+        "sul-mato-grossense"
       ],
       "lema": null,
       "bandeira": "Bandeira de Mato Grosso do Sul.svg",
@@ -249,7 +245,7 @@
       "wikidata": "Q42824",
       "artigo": "Mato Grosso",
       "capital": "Cuiabá",
-      "area_km2": 903357.0,
+      "area_km2": 903208.027,
       "latitude": -12.833333333,
       "longitude": -56.316666666,
       "gentilicos": [
@@ -379,9 +375,7 @@
       "latitude": -5.74,
       "longitude": -36.55,
       "gentilicos": [
-        "potiguar",
-        "norte-rio-grandense",
-        "rio-grandense-do-norte"
+        "potiguar"
       ],
       "lema": null,
       "bandeira": "Bandeira do Rio Grande do Norte.svg",
@@ -399,7 +393,6 @@
       "latitude": -10.933333333,
       "longitude": -62.816666666,
       "gentilicos": [
-        "rondoniense",
         "rondoniano"
       ],
       "lema": null,
@@ -436,9 +429,7 @@
       "latitude": -29.75,
       "longitude": -53.15,
       "gentilicos": [
-        "gaúcho",
-        "sul-rio-grandense",
-        "rio-grandense-do-sul"
+        "gaúcho"
       ],
       "lema": "Liberdade, Igualdade, Humanidade",
       "bandeira": "Bandeira do Rio Grande do Sul.svg",
@@ -474,8 +465,7 @@
       "latitude": -10.59,
       "longitude": -37.38,
       "gentilicos": [
-        "sergipano",
-        "sergipense"
+        "sergipano"
       ],
       "lema": "SUB LEGE LIBERTAS",
       "bandeira": "Bandeira de Sergipe.svg",
@@ -489,7 +479,7 @@
       "wikidata": "Q175",
       "artigo": "São Paulo (estado)",
       "capital": "São Paulo",
-      "area_km2": 248209.4,
+      "area_km2": 248219.485,
       "latitude": -22.07,
       "longitude": -48.433611111,
       "gentilicos": [

@@ -84,9 +84,15 @@ def lacunas(nomes: list[str], saida: Path) -> int:
         if not isinstance(dataset, DatasetWikidata):
             continue
         comandos = dataset.comandos_lacunas(dataset.buscar())
-        caminho = saida / f"{nome}.tsv"
-        caminho.write_text("\n".join(comandos) + "\n", encoding="utf-8")
-        print(f"{nome}: {len(comandos)} comandos em {caminho}")
+        revisar = [c for c in comandos if dataset.revisar(c)]
+        prontos = [c for c in comandos if not dataset.revisar(c)]
+        for sufixo, lista in (("", prontos), ("_revisar", revisar)):
+            caminho = saida / f"{nome}{sufixo}.tsv"
+            if lista:
+                caminho.write_text("\n".join(lista) + "\n", encoding="utf-8")
+                print(f"{nome}{sufixo}: {len(lista)} comandos em {caminho}")
+            else:
+                caminho.unlink(missing_ok=True)
     return 0
 
 

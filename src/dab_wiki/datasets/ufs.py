@@ -5,13 +5,13 @@ from mwparserfromhell.wikicode import Wikicode
 
 from dab_wiki.base import CODIGOS_UF, REGIOES, Regiao, Registro, SiglaUF
 from dab_wiki.datasets._wikidata import DatasetWikidata, opcional, referencia_wikipedia
-from dab_wiki.datasets.municipios import gentilicos
+from dab_wiki.datasets.municipios import comando_gentilico, comando_suspeito, gentilicos_infobox, gentilicos_wikidata
 from dab_wiki.infobox import texto
 from dab_wiki.wikidata import qid
 
 CONSULTA = """
 SELECT ?item ?iso ?nome ?artigo ?capital ?area ?coordenadas ?bandeira ?brasao
-  (GROUP_CONCAT(DISTINCT ?gentilico; separator="|") AS ?gentilicos) (SAMPLE(?lema_) AS ?lema)
+  (GROUP_CONCAT(DISTINCT STR(?gentilico); separator="|") AS ?gentilicos) (SAMPLE(?lema_) AS ?lema)
 WHERE {
   ?item wdt:P300 ?iso . FILTER(STRSTARTS(?iso, "BR-"))
   OPTIONAL { ?item rdfs:label ?nome FILTER(LANG(?nome) = "pt") }
@@ -20,7 +20,7 @@ WHERE {
   OPTIONAL { ?item wdt:P625 ?coordenadas }
   OPTIONAL { ?item wdt:P41 ?bandeira }
   OPTIONAL { ?item wdt:P94 ?brasao }
-  OPTIONAL { ?item wdt:P1549 ?gentilico FILTER(LANG(?gentilico) = "pt") }
+  OPTIONAL { ?item wdt:P1549 ?gentilico FILTER(LANG(?gentilico) IN ("pt", "pt-br")) }
   OPTIONAL { ?item wdt:P1451 ?lema_ }
   OPTIONAL { ?a schema:about ?item; schema:isPartOf <https://pt.wikipedia.org/>; schema:name ?artigo }
 }
@@ -66,7 +66,7 @@ class UFs(DatasetWikidata):
         sigla = linha["iso"].removeprefix("BR-")
         codigo = _SIGLAS[sigla]
         longitude, latitude = map(float, re.findall(r"-?\d+(?:\.\d+)?", linha["coordenadas"]))
-        nomes_gentilicos = [g for g in linha.get("gentilicos", "").split("|") if g]
+        nomes_gentilicos = gentilicos_wikidata(linha)
         return UF(
             sigla=sigla,
             codigo_ibge=codigo,
@@ -78,7 +78,7 @@ class UFs(DatasetWikidata):
             area_km2=float(linha["area"]),
             latitude=latitude,
             longitude=longitude,
-            gentilicos=nomes_gentilicos or gentilicos(texto(info.get("gentílico"))),
+            gentilicos=nomes_gentilicos or gentilicos_infobox(info.get("gentílico")),
             lema=opcional(linha.get("lema")) or texto(info.get("lema")),
             bandeira=arquivo_commons(linha.get("bandeira")),
             brasao=arquivo_commons(linha.get("brasao")),
@@ -88,7 +88,11 @@ class UFs(DatasetWikidata):
         if linha.get("gentilicos"):
             return []
         ref = referencia_wikipedia(revid)
-        return [f'{qid(linha["item"])}\tP1549\tpt:"{g}"{ref}' for g in gentilicos(texto(info.get("gentílico")))]
+        item = qid(linha["item"])
+        return [comando_gentilico(item, g, ref) for g in gentilicos_infobox(info.get("gentílico"))]
+
+    def revisar(self, comando: str) -> bool:
+        return comando_suspeito(comando)
 
     def validar_conjunto(self, registros: list[UF]) -> None:
         if len(registros) != 27:

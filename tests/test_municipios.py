@@ -1,6 +1,17 @@
 from datetime import date
 
-from dab_wiki.datasets.municipios import Municipios, aniversario, fundacao_wikidata, gentilicos
+import mwparserfromhell
+
+from dab_wiki.datasets.municipios import (
+    Municipios,
+    aniversario,
+    comando_suspeito,
+    fundacao_wikidata,
+    gentilicos,
+    gentilicos_infobox,
+    gentilicos_wikidata,
+    suspeito,
+)
 
 
 def test_extrair(brutos):
@@ -19,6 +30,7 @@ def test_lacunas(brutos):
     comandos = Municipios().comandos_lacunas(brutos("municipios"))
     assert comandos
     assert all(c.startswith("Q") and "\tS143\tQ11921" in c for c in comandos)
+    assert all('\tpt-br:"' in c for c in comandos if "\tP1549\t" in c)
 
 
 def test_gentilicos():
@@ -41,4 +53,51 @@ def test_aniversario():
 
 def test_gentilicos_compostos():
     assert gentilicos("são franciscano") == ["são franciscano"]
-    assert gentilicos("(jorge-teixeirense) ou (pedra branca)") == ["jorge-teixeirense", "pedra branca"]
+    # Parte toda entre parênteses só fica se for uma palavra.
+    assert gentilicos("(jorge-teixeirense) ou (pedra branca)") == ["jorge-teixeirense"]
+
+
+def test_gentilicos_infobox_quebrados():
+    assert gentilicos("jordaniense IBGE") == ["jordaniense"]
+    assert gentilicos("rosasserrense - Santarosensse") == ["rosasserrense", "santarosensse"]
+    assert gentilicos("tatuiano | tatuiense") == ["tatuiano", "tatuiense"]
+    assert gentilicos("isaiense, coelhense, ou isaiascoelhense (em desuso)") == [
+        "isaiense",
+        "coelhense",
+        "isaiascoelhense",
+    ]
+    assert gentilicos("tibagiense ou tibagiano, gentílico mais usado pela população local") == [
+        "tibagiense",
+        "tibagiano",
+    ]
+    assert gentilicos("macedonienses") == ["macedoniense"]
+    assert gentilicos("{{Lista simples|") == []
+
+
+def test_gentilicos_lista_simples():
+    valor = mwparserfromhell.parse(
+        "{{Lista simples|\n* pindamonhangabense\n* pindense<ref>[https://x.y Pinda]</ref>\n}}"
+    )
+    assert gentilicos_infobox(valor) == ["pindamonhangabense", "pindense"]
+    assert gentilicos_infobox(None) == []
+
+
+def test_gentilicos_wikidata():
+    assert gentilicos_wikidata({"gentilicos": "mineiro|Mineiro|mineira"}) == ["mineiro", "mineira"]
+    assert gentilicos_wikidata({"gentilicos": "nova-mamonense ou nova-mamorense|baianos"}) == [
+        "nova-mamonense",
+        "nova-mamorense",
+        "baiano",
+    ]
+    assert gentilicos_wikidata({}) == []
+
+
+def test_suspeito():
+    assert not suspeito("santista")
+    assert not suspeito("são-paulino")
+    assert not suspeito("montês")
+    assert suspeito("alto horizontino")
+    assert suspeito("colorados")
+    assert suspeito("tatuí(ano)")
+    assert comando_suspeito('Q1\tP1549\tpt-br:"colorados"\tS143\tQ11921')
+    assert not comando_suspeito("Q1\tP571\t+1900-00-00T00:00:00Z/9\tS143\tQ11921")

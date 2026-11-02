@@ -31,6 +31,11 @@ class DatasetWikidata(Dataset):
 
         return []
 
+    def revisar(self, comando: str) -> bool:
+        """Se o comando deve ir para revisão manual (`<dataset>_revisar.tsv`) em vez do arquivo principal."""
+
+        return False
+
     def buscar(self) -> dict:
         linhas = consultar(self.consulta)
         titulos = sorted({linha["artigo"] for linha in linhas if "artigo" in linha})

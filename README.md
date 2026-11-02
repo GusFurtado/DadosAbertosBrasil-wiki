@@ -101,11 +101,14 @@ Quando a Wikipedia tem um valor que o Wikidata não tem, o dado é usado mesmo a
 certa é preencher o Wikidata, onde ele fica disponível para todo mundo. Para isso:
 
 ```bash
-uv run dab-wiki lacunas            # grava lacunas/<dataset>.tsv
+uv run dab-wiki lacunas            # grava lacunas/<dataset>.tsv e lacunas/<dataset>_revisar.tsv
 ```
 
 Cada linha é um comando do [QuickStatements](https://quickstatements.toolforge.org/) com a referência
-"importado da Wikipedia em português" e o link da revisão de onde o valor saiu. O envio é **manual**:
+"importado da Wikipedia em português" e o link da revisão de onde o valor saiu. Gentílicos vão com o
+idioma `pt-br`, o usado na maioria dos itens, e só são sugeridos para itens que não têm nenhum (em `pt`
+ou `pt-br`). Os que parecem quebrados (com espaço, no plural, longos demais) ficam separados em
+`<dataset>_revisar.tsv` para conferência caso a caso. O envio é **manual**:
 revise o arquivo, cole no QuickStatements e execute com a sua conta. Lotes grandes (milhares de
 edições) devem ser anunciados antes no
 [Project chat](https://www.wikidata.org/wiki/Wikidata:Project_chat) do Wikidata.
