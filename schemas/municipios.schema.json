@@ -186,6 +186,32 @@
             }
           ],
           "title": "Lema"
+        },
+        "latitude": {
+          "anyOf": [
+            {
+              "maximum": 6.0,
+              "minimum": -34.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Latitude"
+        },
+        "longitude": {
+          "anyOf": [
+            {
+              "maximum": -28.0,
+              "minimum": -74.5,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Longitude"
         }
       },
       "required": [
@@ -200,7 +226,9 @@
         "ano_fundacao",
         "aniversario_dia",
         "aniversario_mes",
-        "lema"
+        "lema",
+        "latitude",
+        "longitude"
       ],
       "title": "Municipio",
       "type": "object"

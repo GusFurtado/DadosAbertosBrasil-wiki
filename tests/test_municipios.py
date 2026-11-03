@@ -84,10 +84,11 @@ def test_gentilicos_lista_simples():
 
 def test_gentilicos_wikidata():
     assert gentilicos_wikidata({"gentilicos": "mineiro|Mineiro|mineira"}) == ["mineiro", "mineira"]
+    # Ordem alfabética dos valores: o GROUP_CONCAT não tem ordem garantida.
     assert gentilicos_wikidata({"gentilicos": "nova-mamonense ou nova-mamorense|baianos"}) == [
+        "baiano",
         "nova-mamonense",
         "nova-mamorense",
-        "baiano",
     ]
     assert gentilicos_wikidata({}) == []
 
@@ -101,3 +102,10 @@ def test_suspeito():
     assert suspeito("tatuí(ano)")
     assert comando_suspeito('Q1\tP1549\tpt-br:"colorados"\tS143\tQ11921')
     assert not comando_suspeito("Q1\tP571\t+1900-00-00T00:00:00Z/9\tS143\tQ11921")
+
+
+def test_coordenadas_do_wikidata():
+    from dab_wiki.datasets._wikidata import coordenadas
+
+    assert coordenadas("Point(-48.549166666 -27.596944444)") == (-27.596944444, -48.549166666)
+    assert coordenadas(None) == (None, None)

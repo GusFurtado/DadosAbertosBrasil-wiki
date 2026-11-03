@@ -1,10 +1,9 @@
-import re
 from urllib.parse import unquote
 
 from mwparserfromhell.wikicode import Wikicode
 
 from dab_wiki.base import CODIGOS_UF, REGIOES, Regiao, Registro, SiglaUF
-from dab_wiki.datasets._wikidata import DatasetWikidata, opcional, referencia_wikipedia
+from dab_wiki.datasets._wikidata import DatasetWikidata, coordenadas, opcional, referencia_wikipedia
 from dab_wiki.datasets.municipios import comando_gentilico, comando_suspeito, gentilicos_infobox, gentilicos_wikidata
 from dab_wiki.infobox import texto
 from dab_wiki.wikidata import qid
@@ -65,7 +64,7 @@ class UFs(DatasetWikidata):
     def registro(self, linha: dict[str, str], info: dict[str, Wikicode], revid: int | None) -> UF:
         sigla = linha["iso"].removeprefix("BR-")
         codigo = _SIGLAS[sigla]
-        longitude, latitude = map(float, re.findall(r"-?\d+(?:\.\d+)?", linha["coordenadas"]))
+        latitude, longitude = coordenadas(linha["coordenadas"])
         nomes_gentilicos = gentilicos_wikidata(linha)
         return UF(
             sigla=sigla,

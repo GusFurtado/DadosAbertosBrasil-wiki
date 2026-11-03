@@ -6,7 +6,7 @@ from mwparserfromhell.wikicode import Wikicode
 from pydantic import Field
 
 from dab_wiki.base import CODIGOS_UF, REGIOES, Regiao, Registro, SiglaUF
-from dab_wiki.datasets._wikidata import DatasetWikidata, opcional, referencia_wikipedia
+from dab_wiki.datasets._wikidata import DatasetWikidata, coordenadas, opcional, referencia_wikipedia
 from dab_wiki.infobox import dtlink, texto
 from dab_wiki.tabela import MESES
 from dab_wiki.wikidata import qid
@@ -15,12 +15,14 @@ CONSULTA = """
 SELECT ?item ?ibge ?nome ?artigo
   (GROUP_CONCAT(DISTINCT STR(?gentilico); separator="|") AS ?gentilicos)
   (SAMPLE(?fundacao_) AS ?fundacao) (SAMPLE(?precisao_) AS ?precisao) (SAMPLE(?lema_) AS ?lema)
+  (SAMPLE(?coordenadas_) AS ?coordenadas)
 WHERE {
   ?item wdt:P31 wd:Q3184121; wdt:P1585 ?ibge .
   OPTIONAL { ?item rdfs:label ?nome FILTER(LANG(?nome) = "pt") }
   OPTIONAL { ?item wdt:P1549 ?gentilico FILTER(LANG(?gentilico) IN ("pt", "pt-br")) }
   OPTIONAL { ?item p:P571/psv:P571 [wikibase:timeValue ?fundacao_; wikibase:timePrecision ?precisao_] }
   OPTIONAL { ?item wdt:P1451 ?lema_ }
+  OPTIONAL { ?item wdt:P625 ?coordenadas_ }
   OPTIONAL { ?a schema:about ?item; schema:isPartOf <https://pt.wikipedia.org/>; schema:name ?artigo }
 }
 GROUP BY ?item ?ibge ?nome ?artigo
@@ -40,6 +42,9 @@ class Municipio(Registro):
     aniversario_dia: int | None = Field(ge=1, le=31)
     aniversario_mes: int | None = Field(ge=1, le=12)
     lema: str | None
+    # Limites do território brasileiro, com folga para as ilhas oceânicas.
+    latitude: float | None = Field(ge=-34.0, le=6.0)
+    longitude: float | None = Field(ge=-74.5, le=-28.0)
 
 
 # Idioma dos gentílicos enviados ao Wikidata: é o usado na grande maioria dos itens de municípios e UFs.
@@ -122,7 +127,8 @@ def gentilicos_wikidata(linha: dict[str, str]) -> list[str]:
     """Gentílicos da consulta (pt e pt-br), com a mesma limpeza da infobox: há valores como `a ou b` e plurais."""
 
     resultado = []
-    for valor in linha.get("gentilicos", "").split("|"):
+    # GROUP_CONCAT não tem ordem garantida: ordenar evita que o arquivo mude sem os dados mudarem.
+    for valor in sorted(linha.get("gentilicos", "").split("|")):
         for g in gentilicos(valor):
             if g not in resultado:
                 resultado.append(g)
@@ -153,7 +159,7 @@ def aniversario(texto_: str | None) -> tuple[int | None, int | None]:
 
 class Municipios(DatasetWikidata):
     nome = "municipios"
-    descricao = "Os 5.570 municípios brasileiros com gentílico, fundação, aniversário e lema."
+    descricao = "Os 5.570 municípios brasileiros com gentílico, fundação, aniversário, lema e coordenadas."
     consulta = CONSULTA
     prefixo_infobox = "Info/Município do Brasil"
     amostra = ["Santos", "Campinas", "Ouro Preto", "Acrelândia", "Bom Jesus (Piauí)"]
@@ -170,6 +176,7 @@ class Municipios(DatasetWikidata):
                 data, ano = data_info, ano_info
         dia, mes = aniversario(texto(info.get("aniversário")))
         nomes_gentilicos = gentilicos_wikidata(linha)
+        latitude, longitude = coordenadas(linha.get("coordenadas"))
         return Municipio(
             codigo_ibge=codigo,
             nome=linha.get("nome") or linha["artigo"].split(" (")[0],
@@ -183,6 +190,8 @@ class Municipios(DatasetWikidata):
             aniversario_dia=dia,
             aniversario_mes=mes,
             lema=opcional(linha.get("lema")) or texto(info.get("lema")),
+            latitude=latitude,
+            longitude=longitude,
         )
 
     def lacunas(self, linha: dict[str, str], info: dict[str, Wikicode], revid: int | None) -> list[str]:
@@ -206,3 +215,6 @@ class Municipios(DatasetWikidata):
     def validar_conjunto(self, registros: list[Municipio]) -> None:
         if not 5560 <= len(registros) <= 5580:
             raise ValueError(f"{len(registros)} municípios: esperado ~5.570")
+        sem_coordenadas = sum(r.latitude is None for r in registros)
+        if sem_coordenadas > 50:
+            raise ValueError(f"{sem_coordenadas} municípios sem coordenadas: a consulta provavelmente mudou")

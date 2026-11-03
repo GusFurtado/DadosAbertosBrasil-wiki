@@ -17,7 +17,7 @@ resumo das mudanças. Quando a página da Wikipedia muda de formato e o scraper 
 | [`tribunais.json`](data/tribunais.json) | Composição atual de STF, STJ, TST, STM e TCU | Páginas de cada tribunal |
 | [`partidos.json`](data/partidos.json) | Partidos em atividade e extintos desde o Império | [Lista de partidos políticos do Brasil](https://pt.wikipedia.org/wiki/Lista_de_partidos_pol%C3%ADticos_do_Brasil) e [extintos](https://pt.wikipedia.org/wiki/Lista_de_partidos_pol%C3%ADticos_brasileiros_extintos) |
 | [`ufs.json`](data/ufs.json) | As 27 UFs: capital, área, coordenadas, gentílico, lema, bandeira e brasão | Wikidata + infobox de cada artigo |
-| [`municipios.json`](data/municipios.json) | Os 5.570 municípios: gentílico, fundação, aniversário e lema | Wikidata + infobox de cada artigo |
+| [`municipios.json`](data/municipios.json) | Os 5.570 municípios: gentílico, fundação, aniversário, lema e coordenadas | Wikidata + infobox de cada artigo |
 
 `ufs` e `municipios` usam o Wikidata como fonte principal e a infobox do artigo na Wikipedia só para
 os valores que ainda faltam lá (veja [Contribuir com o Wikidata](#contribuir-com-o-wikidata)).

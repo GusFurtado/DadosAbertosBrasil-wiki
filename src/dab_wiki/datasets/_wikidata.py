@@ -1,5 +1,6 @@
 """Datasets montados a partir de uma consulta ao Wikidata, completados pela infobox do artigo na Wikipedia."""
 
+import re
 from typing import Any, ClassVar
 
 from mwparserfromhell.wikicode import Wikicode
@@ -8,6 +9,16 @@ from dab_wiki.base import Dataset, Fonte, Registro
 from dab_wiki.infobox import infobox, infobox_externa
 from dab_wiki.mediawiki import buscar_wikitextos
 from dab_wiki.wikidata import consultar
+
+
+def coordenadas(ponto: str | None) -> tuple[float | None, float | None]:
+    """`Point(-48.54 -27.59)` (WKT, longitude primeiro) → (latitude, longitude)."""
+
+    numeros = re.findall(r"-?\d+(?:\.\d+)?", ponto or "")
+    if len(numeros) != 2:
+        return None, None
+    longitude, latitude = map(float, numeros)
+    return latitude, longitude
 
 
 class DatasetWikidata(Dataset):
