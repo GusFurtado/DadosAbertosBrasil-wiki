@@ -6,7 +6,7 @@ from dataclasses import dataclass
 import requests
 
 API = "https://pt.wikipedia.org/w/api.php"
-USER_AGENT = "DadosAbertosBrasil-bot/3.0 (https://github.com/GusFurtado/dab_assets)"
+USER_AGENT = "DadosAbertosBrasil-bot/3.0 (https://github.com/GusFurtado/DadosAbertosBrasil-wiki)"
 TENTATIVAS = 6
 
 
