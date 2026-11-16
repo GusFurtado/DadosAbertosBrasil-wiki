@@ -3,12 +3,13 @@
   "dataset": "prefeitos_capitais",
   "descricao": "Prefeitos em exercício nas 26 capitais estaduais.",
   "licenca": "CC BY-SA 4.0 (conteúdo derivado da Wikipedia)",
-  "gerado_em": "2026-10-19T17:07:38Z",
+  "gerado_em": "2026-11-16T19:37:02Z",
   "fontes": [
     {
       "titulo": "Lista de prefeitos das capitais do Brasil",
-      "revid": 72898671,
-      "url": "https://pt.wikipedia.org/w/index.php?oldid=72898671"
+      "url": "https://pt.wikipedia.org/w/index.php?oldid=73312614",
+      "revid": 73312614,
+      "consulta": null
     }
   ],
   "dados": [
@@ -113,7 +114,7 @@
       "capital": "São Luís",
       "capital_artigo": "São Luís (Maranhão)",
       "nome": "Esmênia Miranda",
-      "artigo": null,
+      "artigo": "Esmênia Miranda",
       "partido": "Partido Social Democrático",
       "partido_sigla": "PSD",
       "vice_prefeito": null,
