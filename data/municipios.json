@@ -3,7 +3,7 @@
   "dataset": "municipios",
   "descricao": "Os 5.570 municípios brasileiros com gentílico, fundação, aniversário, lema e coordenadas.",
   "licenca": "CC BY-SA 4.0 (conteúdo derivado da Wikipedia)",
-  "gerado_em": "2026-11-03T02:43:50Z",
+  "gerado_em": "2026-11-16T19:39:59Z",
   "fontes": [
     {
       "titulo": "Wikidata",
@@ -2213,7 +2213,7 @@
       "ano_fundacao": 1985,
       "aniversario_dia": 10,
       "aniversario_mes": 12,
-      "lema": "Por Nossa Terra Por Nossa Gente!",
+      "lema": "Por nossa terra. Por nossa gente!",
       "latitude": -2.017222222,
       "longitude": -60.025
     },
@@ -2749,8 +2749,8 @@
       "gentilicos": [
         "abaetetubense"
       ],
-      "fundacao": null,
-      "ano_fundacao": 1750,
+      "fundacao": "1895-08-15",
+      "ano_fundacao": 1895,
       "aniversario_dia": 15,
       "aniversario_mes": 8,
       "lema": null,
@@ -5075,7 +5075,7 @@
       "ano_fundacao": 1757,
       "aniversario_dia": 20,
       "aniversario_mes": 1,
-      "lema": "Que o raio de teu sol nos ilumine",
+      "lema": "Que um raio de teu sol nos ilumine",
       "latitude": -0.716944444,
       "longitude": -48.522777777
     },
@@ -20679,7 +20679,7 @@
       "uf": "RN",
       "regiao": "Nordeste",
       "wikidata": "Q973069",
-      "artigo": "Lagoa Salgada",
+      "artigo": "Lagoa Salgada (Rio Grande do Norte)",
       "gentilicos": [
         "lagoa-salgadense"
       ],
@@ -45816,8 +45816,8 @@
       "gentilicos": [
         "frei lagonegrense"
       ],
-      "fundacao": "1995-12-21",
-      "ano_fundacao": 1995,
+      "fundacao": "1962-12-30",
+      "ano_fundacao": 1962,
       "aniversario_dia": null,
       "aniversario_mes": null,
       "lema": null,
@@ -51482,7 +51482,7 @@
       "uf": "MG",
       "regiao": "Sudeste",
       "wikidata": "Q1779977",
-      "artigo": "Prados (Minas Gerais)",
+      "artigo": "Prados",
       "gentilicos": [
         "pradense"
       ],
@@ -62165,8 +62165,8 @@
       ],
       "fundacao": "1805-12-03",
       "ano_fundacao": 1805,
-      "aniversario_dia": 28,
-      "aniversario_mes": 11,
+      "aniversario_dia": null,
+      "aniversario_mes": null,
       "lema": "Genti Meae Paulistae Fidelis",
       "latitude": -20.538888888,
       "longitude": -47.400833333
@@ -66213,8 +66213,8 @@
       "gentilicos": [
         "paulinense"
       ],
-      "fundacao": "1964-02-28",
-      "ano_fundacao": 1964,
+      "fundacao": "1906-07-16",
+      "ano_fundacao": 1906,
       "aniversario_dia": 28,
       "aniversario_mes": 2,
       "lema": "Paulínia – Chamas do Progresso",
@@ -75221,7 +75221,7 @@
         "pinhalense",
         "pinhalãoense"
       ],
-      "fundacao": null,
+      "fundacao": "1951-11-14",
       "ano_fundacao": 1951,
       "aniversario_dia": null,
       "aniversario_mes": null,
@@ -78767,8 +78767,8 @@
       "gentilicos": [
         "celso-ramense"
       ],
-      "fundacao": "1989-04-26",
-      "ano_fundacao": 1989,
+      "fundacao": "1988-04-26",
+      "ano_fundacao": 1988,
       "aniversario_dia": null,
       "aniversario_mes": null,
       "lema": "União do povo de Celso Ramos",
@@ -99023,8 +99023,8 @@
       "gentilicos": [
         "palminopolino"
       ],
-      "fundacao": "1967-10-31",
-      "ano_fundacao": 1967,
+      "fundacao": "1964-10-31",
+      "ano_fundacao": 1964,
       "aniversario_dia": 31,
       "aniversario_mes": 10,
       "lema": null,
