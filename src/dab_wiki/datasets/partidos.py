@@ -37,15 +37,15 @@ def _opcional(texto: str) -> str | None:
 
 
 def ativos(pagina: Pagina) -> list[Partido]:
-    df = encontrar_tabela(pagina, ["Nome.1", "Sigla", "Número eleitoral", "Data de criação", "Data de registro"])
+    df = encontrar_tabela(pagina, ["Nome", "Sigla", "Número eleitoral", "Data de criação", "Data de registro"])
     registros = []
     for _, linha in df.iterrows():
         criacao = datas(linha["Data de criação"])
         registro = datas(linha["Data de registro"])
         registros.append(
             Partido(
-                nome=linha["Nome.1"],
-                artigo=linha["Nome.1"].link,
+                nome=linha["Nome"],
+                artigo=linha["Nome"].link,
                 sigla=_opcional(linha["Sigla"]),
                 numero=_numero(linha["Número eleitoral"]),
                 ativo=True,
