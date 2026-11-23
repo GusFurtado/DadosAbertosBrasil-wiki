@@ -3,32 +3,37 @@
   "dataset": "tribunais",
   "descricao": "Composição atual do STF, STJ, TST, STM e TCU.",
   "licenca": "CC BY-SA 4.0 (conteúdo derivado da Wikipedia)",
-  "gerado_em": "2026-10-19T17:09:13Z",
+  "gerado_em": "2026-11-23T21:27:09Z",
   "fontes": [
     {
       "titulo": "Lista de ministros do Supremo Tribunal Federal",
-      "revid": 73027183,
-      "url": "https://pt.wikipedia.org/w/index.php?oldid=73027183"
+      "url": "https://pt.wikipedia.org/w/index.php?oldid=73456263",
+      "revid": 73456263,
+      "consulta": null
     },
     {
       "titulo": "Superior Tribunal de Justiça",
-      "revid": 73164749,
-      "url": "https://pt.wikipedia.org/w/index.php?oldid=73164749"
+      "url": "https://pt.wikipedia.org/w/index.php?oldid=73535385",
+      "revid": 73535385,
+      "consulta": null
     },
     {
       "titulo": "Tribunal Superior do Trabalho",
-      "revid": 72221530,
-      "url": "https://pt.wikipedia.org/w/index.php?oldid=72221530"
+      "url": "https://pt.wikipedia.org/w/index.php?oldid=73302003",
+      "revid": 73302003,
+      "consulta": null
     },
     {
       "titulo": "Superior Tribunal Militar",
+      "url": "https://pt.wikipedia.org/w/index.php?oldid=73214440",
       "revid": 73214440,
-      "url": "https://pt.wikipedia.org/w/index.php?oldid=73214440"
+      "consulta": null
     },
     {
       "titulo": "Tribunal de Contas da União",
-      "revid": 73216208,
-      "url": "https://pt.wikipedia.org/w/index.php?oldid=73216208"
+      "url": "https://pt.wikipedia.org/w/index.php?oldid=73302034",
+      "revid": 73302034,
+      "consulta": null
     }
   ],
   "dados": [
@@ -204,16 +209,6 @@
     },
     {
       "tribunal": "STJ",
-      "nome": "Geraldo Og Nicéas Marques Fernandes",
-      "artigo": "Og Fernandes",
-      "posse": "2008-06-17",
-      "ano_aposentadoria_compulsoria": 2026,
-      "indicado_por": "Luiz Inácio Lula da Silva",
-      "vaga": "TJ",
-      "uf_origem": null
-    },
-    {
-      "tribunal": "STJ",
       "nome": "Humberto Eustáquio Soares Martins",
       "artigo": "Humberto Martins (magistrado)",
       "posse": "2006-06-14",
@@ -294,16 +289,6 @@
     },
     {
       "tribunal": "STJ",
-      "nome": "Marco Aurélio Gastaldi Buzzi",
-      "artigo": "Marco Buzzi",
-      "posse": "2011-09-05",
-      "ano_aposentadoria_compulsoria": 2033,
-      "indicado_por": "Dilma Rousseff",
-      "vaga": "TJ",
-      "uf_origem": null
-    },
-    {
-      "tribunal": "STJ",
       "nome": "Maria Isabel Diniz Gallotti Rodrigues",
       "artigo": "Isabel Gallotti",
       "posse": "2010-08-10",
@@ -325,7 +310,7 @@
     {
       "tribunal": "STJ",
       "nome": "Maria Thereza Rocha de Assis Moura",
-      "artigo": "Maria Thereza de Assis Moura",
+      "artigo": "Maria Thereza Moura",
       "posse": "2006-09-09",
       "ano_aposentadoria_compulsoria": 2031,
       "indicado_por": "Luiz Inácio Lula da Silva",
@@ -395,7 +380,7 @@
     {
       "tribunal": "STJ",
       "nome": "Reynaldo Soares da Fonseca",
-      "artigo": "Reynaldo Soares da Fonseca",
+      "artigo": "Reynaldo da Fonseca",
       "posse": "2015-05-26",
       "ano_aposentadoria_compulsoria": 2038,
       "indicado_por": "Dilma Rousseff",
