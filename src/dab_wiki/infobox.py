@@ -66,10 +66,17 @@ def texto(valor: Wikicode | None) -> str | None:
 
     if valor is None:
         return None
-    valor = mwparserfromhell.parse(str(valor))
+    bruto = str(valor)
+    valor = mwparserfromhell.parse(bruto)
     for tag in valor.filter_tags(matches=lambda n: str(n.tag).lower() in ("ref", "small", "sup")):
         with contextlib.suppress(ValueError):  # já removida junto com uma tag externa
             valor.remove(tag)
+    if not valor.strip_code().strip():
+        # O valor inteiro estava em <small>/<sup> (ex.: `<small>''lema''</small>`): fica o conteúdo, sem a tag.
+        valor = mwparserfromhell.parse(bruto)
+        for tag in valor.filter_tags(matches=lambda n: str(n.tag).lower() == "ref"):
+            with contextlib.suppress(ValueError):
+                valor.remove(tag)
     # Primeira linha não vazia: o que vem depois de <br> costuma ser tradução ou observação.
     linhas = [linha for linha in re.split(r"<br\s*/?>|\n", str(valor), flags=re.IGNORECASE) if linha.strip()]
     plano = mwparserfromhell.parse(linhas[0] if linhas else "").strip_code(normalize=True, collapse=True)

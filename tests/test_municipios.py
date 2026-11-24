@@ -42,6 +42,8 @@ def test_gentilicos():
 def test_fundacao_wikidata():
     assert fundacao_wikidata({"fundacao": "1546-01-01T00:00:00Z", "precisao": "9"}) == (None, 1546)
     assert fundacao_wikidata({"fundacao": "1949-01-20T00:00:00Z", "precisao": "11"}) == (date(1949, 1, 20), 1949)
+    assert fundacao_wikidata({"fundacao": "1906-07-16T00:00:00Z|11"}) == (date(1906, 7, 16), 1906)
+    assert fundacao_wikidata({"fundacao": "1985-01-01T00:00:00Z|9"}) == (None, 1985)
     assert fundacao_wikidata({}) == (None, None)
 
 
