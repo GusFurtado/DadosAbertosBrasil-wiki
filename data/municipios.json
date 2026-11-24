@@ -3,7 +3,7 @@
   "dataset": "municipios",
   "descricao": "Os 5.570 municípios brasileiros com gentílico, fundação, aniversário, lema e coordenadas.",
   "licenca": "CC BY-SA 4.0 (conteúdo derivado da Wikipedia)",
-  "gerado_em": "2026-11-16T19:39:59Z",
+  "gerado_em": "2026-11-23T21:29:08Z",
   "fontes": [
     {
       "titulo": "Wikidata",
@@ -2213,7 +2213,7 @@
       "ano_fundacao": 1985,
       "aniversario_dia": 10,
       "aniversario_mes": 12,
-      "lema": "Por nossa terra. Por nossa gente!",
+      "lema": null,
       "latitude": -2.017222222,
       "longitude": -60.025
     },
@@ -36022,8 +36022,8 @@
       "gentilicos": [
         "ireceense"
       ],
-      "fundacao": "1933-05-31",
-      "ano_fundacao": 1933,
+      "fundacao": null,
+      "ano_fundacao": null,
       "aniversario_dia": 31,
       "aniversario_mes": 5,
       "lema": null,
@@ -59952,7 +59952,7 @@
       "ano_fundacao": 1854,
       "aniversario_dia": 25,
       "aniversario_mes": 8,
-      "lema": "Frates Sumus Omnes",
+      "lema": "Fratres Sumus Omnes",
       "latitude": -20.556944444,
       "longitude": -48.567777777
     },
@@ -66213,8 +66213,8 @@
       "gentilicos": [
         "paulinense"
       ],
-      "fundacao": "1906-07-16",
-      "ano_fundacao": 1906,
+      "fundacao": "1964-02-28",
+      "ano_fundacao": 1964,
       "aniversario_dia": 28,
       "aniversario_mes": 2,
       "lema": "Paulínia – Chamas do Progresso",
