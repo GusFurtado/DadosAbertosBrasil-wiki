@@ -14,7 +14,7 @@ from dab_wiki.wikidata import qid
 CONSULTA = """
 SELECT ?item ?ibge ?nome ?artigo
   (GROUP_CONCAT(DISTINCT STR(?gentilico); separator="|") AS ?gentilicos)
-  (SAMPLE(?fundacao_) AS ?fundacao) (SAMPLE(?precisao_) AS ?precisao) (SAMPLE(?lema_) AS ?lema)
+  (MIN(CONCAT(STR(?fundacao_), "|", STR(?precisao_))) AS ?fundacao) (SAMPLE(?lema_) AS ?lema)
   (SAMPLE(?coordenadas_) AS ?coordenadas)
 WHERE {
   ?item wdt:P31 wd:Q3184121; wdt:P1585 ?ibge .
@@ -136,15 +136,18 @@ def gentilicos_wikidata(linha: dict[str, str]) -> list[str]:
 
 
 def fundacao_wikidata(linha: dict[str, str]) -> tuple[date | None, int | None]:
-    """Data de fundação no Wikidata, respeitando a precisão (11 = dia, 9 = ano)."""
+    """Data de fundação no Wikidata (`data|precisão`), respeitando a precisão (11 = dia, 9 = ano)."""
 
     if "fundacao" not in linha:
         return None, None
-    m = re.match(r"([+-]?\d+)-(\d{2})-(\d{2})", linha["fundacao"])
+    # A consulta devolve "data|precisão" da data mais antiga, para a escolha ser estável
+    # quando o Wikidata tem mais de uma (ex.: fundação do distrito e emancipação).
+    valor, _, precisao = linha["fundacao"].partition("|")
+    m = re.match(r"([+-]?\d+)-(\d{2})-(\d{2})", valor)
     if not m or m.group(1).startswith("-"):
         return None, None
     ano = int(m.group(1))
-    precisao = int(linha.get("precisao", 0))
+    precisao = int(precisao or linha.get("precisao", 0))
     if precisao >= 11:
         return date(ano, int(m.group(2)), int(m.group(3))), ano
     return None, ano if precisao >= 9 else None

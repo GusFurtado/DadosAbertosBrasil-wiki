@@ -36,3 +36,9 @@ def test_texto_quebra_inicial():
 def test_infobox_externa():
     assert infobox_externa("{{Info/Estado do Brasil/São Paulo}}") == "Predefinição:Info/Estado do Brasil/São Paulo"
     assert infobox_externa(SANTOS) is None
+
+
+def test_texto_todo_em_small():
+    # Presidente Figueiredo (2026-11): o lema inteiro vem dentro de <small>.
+    info = infobox("{{Info/X\n| lema = <small>''Tua gente altiva e aguerrida''</small><ref>x</ref>\n}}")
+    assert texto(info["lema"]) == "Tua gente altiva e aguerrida"
